@@ -9,7 +9,7 @@ cout << "Quanti numeri vuoi inserire?: ";
 cin >> N;
 } while (N < 3);
      
-    cout << PRIMO << "," << secondo;
+    cout << PRIMO << "," <<     secondo;
 
                                             for (i = 2; i < N; i++) {
                                                 terzo_ExAmPlE = PRIMO + secondo;

@@ -7,6 +7,6 @@ count = 1
 while count <= n:
     print(next_NuMbEr_ExAmPlE, end=" ")
     count += 1
-    num1, num2 = num2, next_NuMbEr_ExAmPlE
+    num1, num2 = num2,    next_NuMbEr_ExAmPlE
     next_NuMbEr_ExAmPlE = num1 + num2
 print()
