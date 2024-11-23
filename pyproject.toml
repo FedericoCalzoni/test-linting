@@ -1,0 +1,19 @@
+[tool.ruff]
+select = [
+  "E",  # Errors (e.g., PEP 8)
+  "F",  # Pyflakes (logical errors)
+  "N",  # Naming conventions
+  "Q",  # PyQuirks
+  "B",  # Bugbear (best practices and performance)
+  "I",  # Import conventions
+  "S",  # Security issues
+]
+ignore = []
+line-length = 88  # Adjust if necessary
+exclude = ["build/", "dist/", ".venv/", "migrations/"]
+
+[tool.ruff.rules]
+N801 = "error"  # Class names should follow CapWords convention
+N802 = "error"  # Function names should be snake_case
+N803 = "error"  # Variable names should be snake_case
+N806 = "error"  # Constants should be UPPER_CASE
