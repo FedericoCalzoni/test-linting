@@ -1,0 +1,45 @@
+name: Lint Code
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Determine default branch
+        id: default-branch
+        run: |
+          DEFAULT_BRANCH=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
+          echo "DEFAULT_BRANCH=$DEFAULT_BRANCH" >> $GITHUB_ENV
+
+      - name: Python Linting
+        uses: github/super-linter@v5
+        env:
+          DEFAULT_BRANCH: ${{ steps.default-branch.outputs.DEFAULT_BRANCH }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_ALL_CODEBASE: false # Set it to false to validate only changed files
+          VALIDATE_PYTHON_RUFF: true
+          VALIDATE_CPP: true
+          
+    #   - name: C/C++ Linting
+    #     uses: cpp-linter/cpp-linter-action@v2
+    #     id: cpp-linter
+    #     env:
+    #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #     with:
+    #       style: 'file' # Use .clang-format config file.
+    #       tidy-checks: '' # Use .clang-tidy config file. 
+    #       # only 'update' a single comment in a pull request thread.
+    #       thread-comments: ${{ github.event_name == 'pull_request' && 'update' }}
+    #   - name: Fail fast?!
+    #     if: steps.cpp-linter.outputs.checks-failed > 0
+    #     run: exit 1
